@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   PriceHolder.modelName = "PriceHolder"
-  PriceHolder.database = process.env.PRICES_DATABASE_NAME
   PriceHolder.removeAttribute('id')
 
   return PriceHolder

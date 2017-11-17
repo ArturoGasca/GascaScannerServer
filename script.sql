@@ -24,7 +24,38 @@ values
 ('7702111241152', 'Manzana granny smith por kg', 79.0, 50.50, '10/1/2017', '11/20/2017'),
 ('7501057006432', 'Perón golden Chihuahua por kilo', 38.90, 30.0, '10/25/2017', '10/29/2017')
 
+insert into articulos
+  values('1','5.50');
 
+insert into codebar
+  values('1','pan');
+
+CREATE TABLE listas(
+  "llave" varchar primary key,
+  "lista" varchar
+);
+
+CREATE TABLE detlista(
+  "llave" varchar,
+  "cdbar" varchar,
+  "descp" varchar,
+  "preci" money,
+  "cntpn" smallint,
+  "exstn" int,
+  constraint pk_detlista primary key("llave", "cdbar"),
+  constraint fk_detlist foreign key("llave") references listas("llave")
+);
+
+CREATE TABLE articulos(
+  "codebar" varchar primary key,
+  "precio" money
+);
+
+CREATE TABLE codebar(
+  "codebar" varchar primary key,
+  "descp" varchar,
+  constraint fk_codebar foreign key("codebar") references articulos("codebar")
+);
 
 CREATE TABLE portaprecio(
   "codigo" varchar,
@@ -32,3 +63,6 @@ CREATE TABLE portaprecio(
   "precio" money,
   "cantidad" int
 )
+
+insert into detlista
+  values('aaa','35','pan','5.0',1,1)

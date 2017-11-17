@@ -13,6 +13,7 @@ app.use('/products', items)
 app.use('/priceholders', priceHolder)
 
 app.use(function(err, req, res, next) {
+  console.log(err);
   res.status(501).send(err)
 });
 

@@ -1,8 +1,14 @@
-let { PriceHolder } = require('../models')
+let { ListDetail } = require('../models')
+let { List } = require('../models')
 
 function postPriceHolder(req, res, next){
-  PriceHolder.bulkCreate(req.body)
-  .then( priceHolder => {
+  List.create(req.body, {
+    include: [{
+      model: ListDetail,
+      as: 'details'
+    }]
+  })
+  .then(result => {
     res.status(201).send("Success")
   })
   .catch(next)
