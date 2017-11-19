@@ -23,7 +23,7 @@ var db = {};
 fs
   .readdirSync(__dirname)
   .forEach(function(file) {
-	if (file !== 'index.js' && file !== 'PriceHolder.js'){
+	if (file !== 'index.js'){
 		var model = sequelize.import(path.join(__dirname, file))
 		var modelName = model.modelName || model.name
 		//Store every model in the exported JSON
