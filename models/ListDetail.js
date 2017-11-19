@@ -1,42 +1,62 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const ListDetail = sequelize.define('detlista', {
-  barcode: {
-    field: 'cdbar',
-    type: DataTypes.STRING,
-    unique: 'compositeIndex'
-  },
-  key: {
-    field: 'llave',
-    type: DataTypes.STRING,
-    unique: 'compositeIndex',
-    references: {
-      model: 'List',
-      key: 'llave'
-    }
-  },
-	description:{
-	  field: 'descp',
-      type: DataTypes.STRING
-	},
-	price: {
-	  field: 'preci',
-      type: DataTypes.DOUBLE
-	},
-	quantity: {
-	  field: 'cntpn',
-      type: DataTypes.INTEGER
-	},
-	existences:{
-	  field: 'exstn',
-      type: DataTypes.INTEGER
-	}
-  },{
-    tableName: 'detlista',
-    timestamps: false
-  })
+    const ListDetail = sequelize.define('pplistdetl', {
+        sku: {
+            field: 'sku',
+            type: DataTypes.STRING(15),
+            unique: 'compositeIndex'
+        },
+        code: {
+            field: 'code',
+            type: DataTypes.STRING(12),
+            unique: 'compositeIndex',
+            references: {
+                model: 'List',
+                key: 'code'
+            }
+        },
+        rowNumber: {
+            field: 'nrow',
+            type: DataTypes.INTEGER,
+            allowNull: false, 
+            defaultValue: 0
+        },
+        description:{
+            field: 'item',
+            type: DataTypes.STRING(80),
+            allowNull: false,
+            defaultValue: ''
+        },
+        stock: {
+            field: 'stck',
+            type: DataTypes.INTEGER,
+            allowNull: false, 
+            defaultValue: 0
+        },
+        price: {
+            field: 'pric',
+            type: DataTypes.DOUBLE,
+            allowNull: false, 
+            defaultValue: 0.0
+        },
+        offerPrice: {
+            field: 'offr',
+            type: DataTypes.DOUBLE,
+            allowNull: false, 
+            defaultValue: 0.0
+        },
+        quantity: {
+            field: 'cpnt',
+            type: DataTypes.INTEGER,
+            allowNull: false, 
+            defaultValue: 1
+        }
+    },{
+        tableName: 'pplistdetl',
+        timestamps: false
+    })
 
-  ListDetail.modelName = "ListDetail"
-  ListDetail.removeAttribute('id')
-  return ListDetail
+    ListDetail.modelName = "ListDetail"
+    ListDetail.removeAttribute('id')
+    return ListDetail
 }

@@ -1,18 +1,42 @@
 CREATE DATABASE articulos;
 
+CREATE TABLE articulos(
+  sku varchar(15) not null,
+  item varchar(45) not null default '',
+  line varchar(20) not null default '',
+  stock decimal not null default 0.00,
+  price money not null default 0.00,
+  ofrprc money not null default 0.00,
+  ofrini date not null default '2001-01-1',
+  ofrter date not null default '2001-01-01',
+  primary key(sku)
+);
 
-CREATE TABLE articulo(
-  "codigo" varchar primary key,
-  "descrip" varchar,
-  "precio" money,
-  "precioOfr" money,
-  "inicia" date,
-  "vigencia" date,
-  "linea" varchar
+CREATE TABLE pplisthead
+(
+    code varchar(12) not null,
+    lsttp varchar(5) not null default '',
+    lstnm varchar(80) not null default '',
+    lstdt timestamp not null default '2001-01-01 00:00:00',
+    primary key(code)
+);
+
+CREATE TABLE pplistdetl(
+    sku varchar(15) not null default '',
+    code varchar(12) not null default '',
+    nrow integer not null default 0.00,
+    item varchar(80) not null default '',
+    stck integer not null default 0.00,
+    pric money not null default 0.00,
+    offr money not null default 0.00,
+    cpnt smallint not null default 1,
+    primary key(code, sku),
+    foreign key(code) references pplisthead(code) on delete cascade on update cascade
 );
 
 insert into articulo
 values
+
 ('7896014174164', 'Botella de agua epura 500 ml', 15.0, 11.0, '10/10/2017', '10/15/2017'),
 ('7501001164003', 'Detergente líquido Viva para ropa blanca y de color 4.65 l', 99.0, 0.0, '10/10/2017', '10/15/2017'),
 ('7702018992102', 'Café soluble Nescafé clásico 400 g', 121.0, 100.0, '10/10/2017', '11/15/2017'),
@@ -24,11 +48,6 @@ values
 ('7702111241152', 'Manzana granny smith por kg', 79.0, 50.50, '10/1/2017', '11/20/2017'),
 ('7501057006432', 'Perón golden Chihuahua por kilo', 38.90, 30.0, '10/25/2017', '10/29/2017')
 
-insert into articulos
-  values('1','5.50');
-
-insert into codebar
-  values('1','pan');
 
 CREATE TABLE listas(
   "llave" varchar primary key,
@@ -45,24 +64,3 @@ CREATE TABLE detlista(
   constraint pk_detlista primary key("llave", "cdbar"),
   constraint fk_detlist foreign key("llave") references listas("llave")
 );
-
-CREATE TABLE articulos(
-  "codebar" varchar primary key,
-  "precio" money
-);
-
-CREATE TABLE codebar(
-  "codebar" varchar primary key,
-  "descp" varchar,
-  constraint fk_codebar foreign key("codebar") references articulos("codebar")
-);
-
-CREATE TABLE portaprecio(
-  "codigo" varchar,
-  "descrip" varchar,
-  "precio" money,
-  "cantidad" int
-)
-
-insert into detlista
-  values('aaa','35','pan','5.0',1,1)
